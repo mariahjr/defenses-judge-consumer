@@ -1,0 +1,256 @@
+---
+field: intro
+question: |
+  Hello. Going to court can be scary. It is sometimes hard to know who to talk to, when to talk, and what to say.
+subquestion: |
+  If you would like help explaining some of your defenses and claims to the judge, press Continue.
+mandatory: true
+---
+mandatory: true
+question: Are you going to court next for a...?
+field: going_court
+buttons:
+  - Hearing: hearing
+  - Case management conference: case
+  - Trial: trial
+  - Small Claims Case: small_claims
+---
+mandatory: True
+code: |
+  if going_court == 'case':
+      event_case
+  if going_court == 'hearing':
+      event_hearing
+  else:
+    if going_court == 'trial':
+      event_trial
+    if going_court == 'small_claims':
+      event_small_claims
+    definitions
+    if good_faith:
+      goodfaith_question
+    statute_limits
+    if bankruptcy_yes:
+      discharged_debt
+    if payment_answer:
+      satisfaction_answer
+    if not unapplied_payments:
+      dates_amounts
+    under_18
+    mental_incapacity
+    res_judicata
+    unjust_enrichment
+    if fraud_answer:
+      fraud_rely
+    if unjust_enrichment:
+      execution_proof
+    servicemember_duty
+    identity_theft
+    if not jurisdiction:
+      contract_jurisdiction
+    fdcpa_question
+    valadation_notice
+---
+field: event_case
+question: For a case management conference you probably do not need to be ready to present your case. 
+subquestion: Come back here before you have a hearing or a trial and prepare then to talk to the judge.  But if you want to learn about somet things you can tell the judge now, click continue. 
+sets: event_case
+buttons:
+  - Goodbye: logout
+    url: https://masslegalhelp.org
+---
+template: comeback
+content: |
+  This interview helps people prepare for a trial-- when they have to tell the judge about all of their defenses and claims.
+  Come back here and do this interview before your trial date.
+---
+field: event_hearing
+question: |
+  This means the other side (or you) have probably asked the judge to make a 
+  decision about the case.  This happens before or without a trial.
+subquestion: |
+  You should have a **Motion** that tells you what the judge will want to talk about 
+  when you are in court.  The judge probably will not want to hear about things not in 
+  the **Motion** of the **Opposition to the Motion.** 
+  
+  ${ comeback }
+  
+sets: event_hearing
+buttons:
+  - Goodbye: logout
+    url: https://masslegalhelp.org
+---
+field: event_trial
+question: |
+  Great. At the trial you and the plaintiff both tell the Judge why you should win.
+subquestion: |
+  You show the Judge your **evidence**.
+
+  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge.
+sets: event_trial
+---
+field: event_small_claims
+question: |
+  Great. At the trial you and the plaintiff both tell the Clerk Magistrate 
+  or Judge why you should win.
+subquestion: |
+  Show the Magistrate your **evidence**.
+
+  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge or Clerk Magistrate.
+sets: event_small_claims
+---
+field: definitions
+question: |
+  Some words you will see in this interview.
+subquestion: |
+  * "Plaintiff" is the company who sued you.
+  * "Defendant" is you.
+  * "Original creditor" is the company or person you borrowed money from.
+  * "Debt collector" is a company you did not borrow money from but who has the right to collect a debt from you.  They could work for the original creditor or bought the right to collect the debt from them.
+---
+question: |
+  Did you make your last payment on this debt more than 6 years ago?
+yesno: statute_limits
+---
+question: |
+  Did you pay off this debt in full already?
+yesno: payment_answer
+---
+question: |
+  Did you pay part of this debt but were told if you made that payment you would not owe anymore?
+yesno: satisfaction_answer
+---
+question: |
+  Did you make payments that the creditor didn't apply to your debt?
+yesno: unapplied_payments
+---
+question: List the payment dates and amounts the creditor did not apply to your account.
+fields:
+  - dates and amounts: dates_amounts
+    datatype: area
+    required: false
+---
+question: |
+  Were you under 18 when this debt was taken out of the contract was signed?
+yesno: under_18
+---
+question: |
+  Did you have a mental incapacity when this debt was taken out of the contract was signed?
+yesno: mental_incapacity
+---
+question: |
+  Did you file for bankruptcy after you took out this loan or opened this account?
+yesno: bankruptcy_yes
+---
+question: |
+  Did you list this debt on your petition?  
+subquestion: This means, did you ask that the debt would be discharged in the bankruptcy?
+yesno: discharged_debt
+---
+question: Were you already sued for this debt by the same plaintiff?
+yesno: res_judicata
+---
+question: Were you already sued for this debt by someone else?
+yesno: unjust_enrichment
+---
+question: Did the original creditor make promises to you about the loan or credit card that were not true?
+subquestion: Like they promised you the interest rate would stay the same or drop in six months but it did not.
+yesno: fraud_answer
+---
+question: Did you rely or do something like not make a payment because of the promise?
+yesno: fraud_rely
+---
+question: |
+  Has the plaintiff acted any of these ways with you?
+subquestion: check all that apply
+fields:
+  - no label: good_faith
+    datatype: checkboxes
+    choices:
+      - sneaky
+      - misleading
+      - deceptive
+      - unfair
+---
+question: |
+  List the bad things the plaintiff did to you.
+subquestion: |
+  Please be specific with dates and who you spoke with.
+fields:
+  - Plaintiff's bad acts: goodfaith_question
+---
+question: Did you tell the plaintiff your income?
+subquestion: You could have told them anytime.  Like when you applied or when you fell behind.
+yesno: unjust_enrichment
+---
+question: |
+  Is your income 'execution proof?'
+subquestion: This means is your income so low that it cannot be take by creditors.  Learn more at [MassLegalHelp](http://MassLegalHelp.org/consumer/debt/court/execution-proof)
+yesno: execution_proof
+---
+question: Are you active duty or recently discharged from the military?
+yesno: servicemember_duty
+---
+question: Are you the victim of identiy theft?
+yesno: identity_theft
+---
+question: Is the court where you are going for this case in the same county where you live?
+yesno: jurisdiction
+---
+question: Is the court where you are going for this case in the same county where you signed the contract for the debt?
+yesno: contract_jurisdiction
+---
+question: Has the creditor done any of the following?
+subquestion: check all that apply.
+fields: 
+  - no label: fdcpa_question
+    datatype: checkboxes
+    choices:
+      - My first communication from Plaintiff did not tell me “this is an attempt to collect a debt and any information will be used for that purpose."
+      - When they called and wrote me I was not told "we are a debt collector." 
+      - Threaten or harassed me.
+      - Called me late at night or on weekends.
+      - Lied about the debts they are collecting.
+      - Say they would sue you when they really were not going to.
+      - Contacted my friends or relatives with information about the debt or threatened to do so.
+      - Said I could be arrested. 
+      - Said I could go to jail if I do not pay.
+      - Gave false information about me to a credit bureau.
+---
+question: Within **5** days of the debt collector first contacting you did you get a letter that included **All** of the following information?
+subquestion: |
+  If it did not include **all** answer "no."
+  
+  1. The amount of the debt;
+  2. The name of the creditor\n;
+  3. A statement that if you do not, within thirty days after getting the letter, dispute the debt, it will be assumed to be valid by the debt collector;
+  4. A statement that if you you tell the debt collector in writing within the thirty-days that the debt is disputed, the debt collector will give you a verification of the debt or a copy of a judgment against you; and
+  5. a statement that you can ask, within the thirty-days for the name and address of the original creditor.
+
+yesno: valadation_notice
+---
+question: Here is your document.
+attachments:
+  - name: Getting Ready for Court
+    filename: trial_summary
+    valid formats:
+      - docx
+      - pdf 
+      - rtf   
+    content: |
+      [BOLDCENTER] Getting Ready for Court
+
+      At your trial the judge will listen to you and the plaintiff give facts about your case. The judge will decide if
+      1. The Plaintiff proved their case and you owe them money.
+      2. If you proved any defenses.
+      3. How much, if any, money is owed.
+      4. If you proved your claim for any counterclaims.
+
+      To prove your case and your defenses you should show the judge proof or evidence that what you say is true.  Proof can be things like cancelled checks, old phone records, letters or testimony from a family member.  If you do not have proof, but you have a claim or defense still tell the juddge.  Your words about what happened to you is proof.
+      {%p if good_faith %}
+        It the plaintiff did not act in 'good faith' this means they were not fair with you.
+        Bring to court *evidence* of what they did wrong.  Did they tell you something that was not true? Bring the letter or notes you have of the date and who you spoke with.
+        When you talk to the judge talk about the details of exactly what happened, when and who said what. 
+      {%p endif %}
+mandatory: True
+  

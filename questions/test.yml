@@ -1,0 +1,13 @@
+---
+code: |
+  if user_age > 60:
+    product_recommendation = 'Oldsmobile'
+  else:
+    product_recommendation = 'Mustang'
+mandatory: true
+---
+question: What is your age?
+fields:
+  - Age in Years: user_age
+    datatype: number
+---

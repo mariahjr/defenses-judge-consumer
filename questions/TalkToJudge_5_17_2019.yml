@@ -1,0 +1,379 @@
+---
+field: intro
+question: |
+  Hello. Going to court can be scary. It is sometimes hard to know who to talk to, when to talk, and what to say.
+subquestion: |
+  If you would like help explaining some of your defenses and claims to the judge, press Continue.
+mandatory: true
+---
+mandatory: true
+question: Are you going to court next for a...?
+field: going_court
+buttons:
+  - Hearing: hearing
+  - Case management conference: case
+  - Trial: trial
+  - Small Claims Case: small_claims
+---
+mandatory: True
+code: |
+  if going_court == 'case':
+      event_case
+  if going_court == 'hearing':
+      event_hearing
+  else:
+    if going_court == 'trial':
+      event_trial
+    if going_court == 'small_claims':
+      event_small_claims
+    definitions
+    if good_faith:
+      goodfaith_question
+    statute_limits
+    if bankruptcy_yes:
+      discharged_debt
+    if payment_answer:
+      accord_answer
+    if not unapplied_payments:
+      dates_amounts
+    under_18
+    mental_incapacity
+    res_judicata
+    unjust_enrichment
+    if fraud_answer:
+      fraud_rely
+    if execution_income:
+      execution_proof
+    servicemember_duty
+    identitytheft_debt
+    if not jurisdiction:
+      contract_jurisdiction
+    fdcpa_question
+    valadation_notice
+---
+field: event_case
+question: For a case management conference you probably do not need to be ready to present your case. 
+subquestion: Come back here before you have a hearing or a trial and prepare then to talk to the judge.  But if you want to learn about somet things you can tell the judge now, click continue. 
+sets: event_case
+buttons:
+  - Goodbye: logout
+    url: https://masslegalhelp.org
+---
+template: comeback
+content: |
+  This interview helps people prepare for a trial-- when they have to tell the judge about all of their defenses and claims.
+  Come back here and do this interview before your trial date.
+---
+field: event_hearing
+question: |
+  This means the other side (or you) have probably asked the judge to make a 
+  decision about the case.  This happens before or without a trial.
+subquestion: |
+  You should have a **Motion** that tells you what the judge will want to talk about 
+  when you are in court.  The judge probably will not want to hear about things not in 
+  the **Motion** of the **Opposition to the Motion.** 
+  
+  ${ comeback }
+  
+sets: event_hearing
+buttons:
+  - Goodbye: logout
+    url: https://masslegalhelp.org
+---
+field: event_trial
+question: |
+  Great. At the trial you and the plaintiff both tell the Judge why you should win.
+subquestion: |
+  You show the Judge your **evidence**.
+
+  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge.
+sets: event_trial
+---
+field: event_small_claims
+question: |
+  Great. At the trial you and the plaintiff both tell the Clerk Magistrate 
+  or Judge why you should win.
+subquestion: |
+  Show the Magistrate your **evidence**.
+
+  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge or Clerk Magistrate.
+sets: event_small_claims
+---
+field: definitions
+question: |
+  Some words you will see in this interview.
+subquestion: |
+  * "Plaintiff" is the company who sued you.
+  * "Defendant" is you.
+  * "Original creditor" is the company or person you borrowed money from.
+  * "Debt collector" is a company you did not borrow money from but who has the right to collect a debt from you.  They could work for the original creditor or bought the right to collect the debt from them.
+---
+question: |
+  Did you make your last payment on this debt more than 6 years ago?
+yesno: statute_limits
+---
+question: |
+  Did you pay off this debt in full already?
+yesno: payment_answer
+---
+question: |
+  Did you pay part of this debt but were told if you made that payment you would not owe anymore?
+yesno: accord_answer
+---
+question: |
+  Did you make payments that the creditor did not apply to your debt?
+yesno: unapplied_payments
+---
+question: List the payment dates and amounts the creditor did not apply to your account.
+fields:
+  - dates and amounts: dates_amounts
+    datatype: area
+    required: false
+---
+question: |
+  Were you under 18 when you or someone else took out this debt or the contract was signed?
+yesno: under_18
+---
+question: |
+  Were you mentally incapacititated  or not able to think properly when you took out this debt or the contract was signed?
+yesno: mental_incapacity
+---
+question: |
+  Did you file for bankruptcy after you took out this loan or opened this account?
+yesno: bankruptcy_yes
+---
+question: |
+  Did you list this debt on your petition?  
+subquestion: This means, did you ask that the debt would be discharged in the bankruptcy?
+yesno: discharged_debt
+---
+question: Were you already sued for this debt by the same plaintiff?
+yesno: res_judicata
+---
+question: Were you already sued for this debt by someone else?
+yesno: unjust_enrichment
+---
+question: Did the original creditor make promises to you about the loan or credit card that were not true?
+subquestion: Like they promised you the interest rate would stay the same or drop in six months but it did not.
+yesno: fraud_answer
+---
+question: Did you rely or do something like not make a payment because of the promise?
+yesno: fraud_rely
+---
+question: |
+  Has the plaintiff acted any of these ways with you?
+subquestion: check all that apply
+fields:
+  - no label: good_faith
+    datatype: checkboxes
+    choices:
+      - sneaky
+      - misleading
+      - deceptive
+      - unfair
+---
+question: |
+  List the bad things the plaintiff did to you.
+subquestion: |
+  Please be specific with dates and who you spoke with.
+fields:
+  - Plaintiff's bad acts: goodfaith_question
+---
+question: Did you tell the plaintiff your income?
+subquestion: You could have told them anytime.  Like when you applied or when you fell behind.
+yesno: execution_income
+---
+question: |
+  Is your income 'execution proof?'
+subquestion: This means is your income so low that it cannot be take by creditors.  Learn more at [MassLegalHelp](http://MassLegalHelp.org/consumer/debt/court/execution-proof)
+yesno: execution_proof
+---
+question: Are you active duty or recently discharged from the military?
+yesno: servicemember_duty
+---
+question: Did someone else open this credit card or account or taken out this debt without you saying it was okay?
+yesno: identitytheft_debt
+---
+question: Is the court where you are going for this case in the same county where you live?
+yesno: jurisdiction
+---
+question: Is the court where you are going for this case in the same county where you signed the contract for the debt?
+yesno: contract_jurisdiction
+---
+question: Has the creditor done any of the following?
+subquestion: check all that apply.
+fields: 
+  - no label: fdcpa_question
+    datatype: checkboxes
+    choices:
+      - My first communication from Plaintiff did not tell me “this is an attempt to collect a debt and any information will be used for that purpose."
+      - When they called and wrote me I was not told "we are a debt collector." 
+      - Threaten or harassed me.
+      - Called me late at night or on weekends.
+      - Lied about the debts they are collecting.
+      - Say they would sue you when they really were not going to.
+      - Contacted my friends or relatives with information about the debt or threatened to do so.
+      - Said I could be arrested. 
+      - Said I could go to jail if I do not pay.
+      - Gave false information about me to a credit bureau.
+---
+question: Within **5** days of the debt collector first contacting you did you get a letter that included **All** of the following information?
+subquestion: |
+  If it did not include **all** answer "no."
+  
+  1. The amount of the debt;
+  2. The name of the creditor\n;
+  3. A statement that if you do not, within thirty days after getting the letter, dispute the debt, it will be assumed to be valid by the debt collector;
+  4. A statement that if you you tell the debt collector in writing within the thirty-days that the debt is disputed, the debt collector will give you a verification of the debt or a copy of a judgment against you; and
+  5. a statement that you can ask, within the thirty-days for the name and address of the original creditor.
+
+yesno: valadation_notice
+---
+mandatory: True
+question: Here is your document.
+attachments:
+  - name: Getting Ready for Court
+    filename: trial_summary
+    valid formats:
+      - pdf 
+      - rtf   
+    content: |
+      # Getting Ready for Court
+      [FLUSHLEFT] [SINGLESPACING] At your trial the judge will listen to you and the plaintiff give facts about your case. The judge will decide if:
+      
+      - The Plaintiff proved their case and you owe them money.
+      - If you proved any defenses.
+      - How much, if any, money is owed.
+      - If you proved your claim for any counterclaims. 
+
+      [NOINDENT] [SINGLESPACING] To prove your case and your defenses you should show the judge proof or evidence that what you say is true.  Proof can be things like cancelled checks, old phone records, letters or testimony from a family member.  If you do not have proof, but you have a claim or defense still tell the juddge.  Your words about what happened to you is proof. [NBSP]
+        
+      % if statute_limits:
+        [BOLDCENTER] Statute of Limitations 
+        [FLUSHLEFT] The plaintiff can only sue you for 6 years after your last payment or you last “acknowledged the debt.”  Acknowledging the debt means you admit or say you owe the money:
+        
+        * __Bring__	__proof__ to court of your last payment.  If you wrote a letter saying you “do not acknowledge the debt” bring it.  It is hard to prove you did not do something, but if you kept notes of the times the debt collector called you or the letters you got bring them to court.
+        + __Tell the Judge__ the debt is “passed the statute of limitations” and the plaintiff “must lose.”   
+      % endif
+      
+      % if payment_answer:
+        [BOLDCENTER] Paid Debt Already 
+        [FLUSHLEFT]
+        If you already paid the whole amount owed on the loan in full:
+        
+        - __Bring__	proof of your payments like cancelled check, receipts, or bank records. Keep organized so you can show the judge all the payments you made and that they add up to more than what is owed.  If you got a letter saying you already made the payment, bring that too.
+        - __Tell the Judge__ you already paid off this debt and the plaintiff is trying to get money it is not owed. [NBSP]
+      % endif
+      
+      % if accord_answer:
+        [BOLDCENTER] Settled the Debt 
+        [BR] [FLUSHLEFT] If the plaintiff and you settled your debt:
+      
+        - __Bring__	proof that you had a deal with the creditor that the debt would be settled if you paid part of it.  Also bring proof that you paid your part of the bargain.
+        - __Tell the Judge__ the case should be dismiss because you reached an “accord and satisfaction”, and the Plaintiff cannot sue you for the unpaid balance. [NBSP]
+      % endif
+      
+      % if discharged_debt:
+        [BOLDCENTER] Discharged in Bankrutpcy 
+        [BR] [FLUSHLEFT] If you filed for bankruptcy after you took out this loan you may have discharged this debt in your bankruptcy case.  This means that you do not owe the money anymore.  If you listed the debt in your bankruptcy case, and did not say yu wanted to keep paying it, it is probably discharged:
+        
+        - __Bring__ proof of your bankruptcy case.  Bring your final “discharge notice” this probably was sent to you at the very end of the case.  Also bring your “schedule” from the first paperwork you filed in your case.  The “schedules” list the debts you wanted to get rid of in your case.  Check if this debt is listed.  Bring the schedule to show the judge. 
+        If you do not have the schedule you can get a copy from your bankruptcy lawyer of the bankruptcy court.  If you do not have enough time to get them make sure you bring some could paperwork showing the date of your case, to show the judge it was after the date you took out this debt.
+        - __Tell the Judge__ "This debt was discharged in Bankruptcy and I no longer owe it." 
+        
+        __FYI__ if the debt is not listed in your “bankruptcy schedules” but it was opened before the date you filed for bankruptcy you can reopen your bankruptcy case to include the debt.  Once you include the debt in your bankruptcy it will probably also be discharged. [NBSP]
+      % endif
+      
+      % if res_judicata:
+        [BOLDCENTER] Case Was Already Decided 
+        [BR] [FLUSHLEFT] If you were already sued for this debt and the court made a final decision you probably cannot be sued again.  It does not matter if you won or lost, the same case cannot be decided again:
+        
+        - __Bring__ paperwork from the old case.  Bring the final decision or judgment in the last case. If you do not have it, ask the civil clerk in the courthouse where the case was for a copy. 
+        - __Tell the Judge__ the court is stopped or “estopped” from hearing the case because of “res judicata”—because the case was already decided.  You cannot be sued twice for the same transaction or same series of transactions. [NBSP]
+      % endif
+      
+      % if unjust_enrichment:
+        [BOLDCENTER] Unjust Enrichment
+        [BR] [FLUSHLEFT] If you were already sued by someone else for this debt and that case ended with a judgment against you or you settled the case, you should not be sued again: 
+        
+        - __Bring__ proof of the old case. You need to show the judge that this is the same debt as the one you were already sued for.  If you have the old complaint that gives information about the debt, bring it.  Also bring the final paperwork for the old case.  The paperwork that says there is a “judgment” against you or you settled the case. 
+        - __Tell the Judge__ it is unjust and unfair for the Plaintiff to try to get a judgement against you.  This case has already been litigated by someone else who said tey have the right to collect this debt.  I am harmed by the time, money and effort needed to defend this action as well as the fees and interest that have accrued on this debt. [NBSP]
+      % endif
+      
+      % if fraud_rely:
+        [BOLDCENTER] Fraud
+        [BR] [FLUSHLEFT] If you were told lies about the debt you may have a defense to paying it back:  
+        
+        - __Bring__	proof of any promises you were told.  If you have paperwork or advertisements making promises bring them.  Bring proof that you relied on the promises.  Bring proof of what you did because of the promise.
+        - __Tell the Judge__ the original creditor knowingly made false representations regarding material terms and provisions of the contract.  Tell the judge exactly what you were told <b>and</b> what you did because you were told this.  Tell the judge who told you the lie and when.  It could have been the original creditor or a debt collector.  Tell the judge, “the original creditor's fraud renders the contract unenforceable.  Therefore, the Court should dismiss the Plaintiff's claims, refuse enforcement of the contract, or take other measures it deems necessary to ensure a fair outcome.”
+      % endif
+      
+      % if good_faith:
+        [BOLDCENTER] Not in Good Faith
+        [BR] [FLUSHLEFT] If the creditor or debt collector did not treat you fair you may have a defense in your case.  Pressuring your or tricking you to agree to something are unfair:
+        
+        - __Bring__ Proof you have that they were being unfair or sneaky.  If they gave you a really complicated contract to sign or something in really small print that you could not read bring it.  If they told you that you had a very short time to respond to something or had no choice tell the judge who said this and when.
+        - __Tell the Judge__ The original creditor or assignee breached the “covenant of good faith and fair dealing.” Also say the Plaintiff has acted in bad faith and with unclean hands.  Tell the Judge <b> what the creditor did that was so bad</b>.   Say who you talked to and when. | 
+        Tell the Judge ${ goodfaith_question }. Say “the Court should dismiss Plaintiff's claims or refuse enforcement of the contract.” [NBSP]
+      % endif
+      
+      % if execution_proof:
+        [BOLDCENTER] Execution Proof 
+        [BR] [FLUSHLEFT] Just because your income is low does not mean that you do not owe the debt.  __But__ it can mean that the plaintiff may not be able to collect any money from you.  Before court make sure you know if you are [execution proof](http://MassLegalHelp.org/consumer/debt/court/execution-proof):
+        
+        - __Bring__ proof of your income and assets.  Assets are the things you own that are worth money. Your bank account, car, house or stocks and bonds.
+        - __Tell the Judge__ tell the Judge that you are execution proof and how much money you make.  Remember, this usually does not mean your debt will be forgiven.  But, if you are execution proof and you already made a lot of payments, like the same amount as the total amount owed if there was no interest, tell the judge.  Bring proof of all your payments.  If the plaintiff knew about your low income and still took all your payments and kept charging you high interest the Judge may be able to help get rid of some of the interest and fees. [NBSP]
+      % endif
+      
+      % if servicemember_duty:
+        [BOLDCENTER] Servicemember on Active Duty 
+        [BR] [FLUSHLEFT] If you are an active service member or just back from active duty you can delay the case:
+        
+        - __Bring__ your service papers or discharge papers to court.  If you told the plaintiff or send them to them before you went to court bring proof of that too.  The plaintiff pursuing you for the debt when they know you are on active duty is against the law.
+        - __Tell the Judge__ you are in the active military and you already told the plaintiff this and they would not stop this case.  [NBSP]
+      % endif
+      
+      % if identitytheft_debt:
+        [BOLDCENTER] Identity Theft 
+        [BR] [FLUSHLEFT] If someone else took out this debt or opened this account you may have a defense:
+        
+        - __Bring__ proof this is not your debt.  Bring a copy of a police report if you reported identity theft.  If you reported the identiy theft to the credit bureaus of the credit company bring that proof too.  If you have proof you were not in the places charges were made on the day they were made bring that proof.
+        - __Tell the Judge__ this is not your debt.  If you never made any of the charges on the card or never took out the money say so.  Show the judge your proof that your reported the debt as fraudulent or not yours.  Show proof you did not make the charges. [NBSP]
+      % endif
+      
+      % if contract_jurisdiction:
+        [BOLDCENTER] Jurisdiction 
+        [BR] [FLUSHLEFT] The case must be in the county where you live or where you signed for the debt.  Even if the creditor is in Boston, if you live in Pittsfield and got the loan in Springfield they must sue you in Western MA:
+        
+        - __Bring__ proof of your address and where you “entered into the debt.”  Maybe proof of your address when you took out the card or where the bank was located when you took a loan.
+        - __Tell the Judge__ where you live. Tell the judge if it very difficult for you to get to court in another county.  Tell the Judge where you got this debt and show your proof. [NBSP]
+      % endif
+      
+      % if fdcpa_question:
+        [BOLDCENTER] Fair Debt Collection Practices Act 
+        [BR] [FLUSHLEFT] It sounds like the creditor or debt collector may have violated the Fair Debt Collection Practices Law.  
+        They did this by:
+        
+        - ${ fdcpa_question }
+        
+        - __Bring__  proof of what they did.  Bring notes of the dates and times things happened and who you talked too.  If any one else witnessed what happened bring them too.  
+        - __Tell the Judge__  tell the judge what happened. Tell the judge if you brought someone else to court that can say what happened.  Show your proof.  Say “ the Plaintiff violated the Fair Debt Collection Practices Act.” [NBSP]
+      % endif
+      
+      % if valadation_notice:
+        [BOLDCENTER] Valadation Notice 
+        [BR] [FLUSHLEFT] It sounds like the plaintiff may not have followed the law.  
+        They have to tell you or give you a letter with certain information within 5 days of first talking to you.  
+        Make sure you understand this law by visiting the 
+        [debt collection section of MassLegalHelp.](https://masslegalhelp.org/consumer/debt/rights/debt-collectors)
+        
+        - __Bring__ letters you have about this debt.  Notes from phone calls with the plaintiff.
+        - __Tell the Judge__ if you kept carful records show the judge what you have and that you do not have the letter they were required to send you. [NBSP]
+      % endif
+
+      At the end, after you have told the judge all of the reasons you think you should win.  You can say something like:
+      [BR] [INDENTBY 1in]Your honor, thank you for hearing my testimony and considering my evidence today.  I believe you should find the plaintiff has not met his burden of proving his case and there should be no judgment against me.
+
+
+
+  

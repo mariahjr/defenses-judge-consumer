@@ -1,0 +1,66 @@
+---
+metadata:
+  title: |
+    Getting your credit report
+  short title: |
+    Credit Report
+  description: |
+    Getting your credit report
+  authors:
+    - name: Mariah Jennings-Rampsi
+      organization: MassLegalHelp
+  revision_date: 2019-01-2
+---
+mandatory: true
+code: |
+  if have_credit_report: 
+    great_have
+  else:
+    user_needs_credit_report
+---
+mandatory: True
+code: |
+  if user_needs_credit_report == 'phone':
+    phone_credit
+  elif user_needs_credit_report == 'computer':
+    computer_credit
+  elif user_needs_credit_report == 'mail':
+    mail_credit
+---    
+field: target_variable
+question: |
+  Hello. Your credit report can help you see all or most of your debts in one place.
+subquestion: |
+  It lists who you owe money to.  It also lists how much money you owe.  Your on time and late payments are also listed.
+mandatory: True
+---
+question: Do you need a copy of your credit report?
+noyes: have_credit_report
+---
+question: Have you gotten a free credit report already this year?
+subquestion: If a company gave it you after you applied for something like a loan, apartment or utility you can still get a free report.
+noyes: this_year
+---
+question: How do you want to get your credit report?
+field: user_needs_credit_report
+buttons:
+  - Phone: phone
+  - Mail: mail
+  - Computer: computer
+---
+question: Great. If you already have a copy find out how to read it here. Add page when ready.
+sets: great_have
+---
+question: >
+  **Call 1-877-322-8228** to get 3 free copies of your credit report.
+subquestion: They will ask for your name, address, social security number, and date of birth to check it is really you calling.
+sets: phone_credit
+---
+question: Fill out the [Annual Credit Report Request Form](https://www.annualcreditreport.com/manualRequestForm.action "Annual Credit Report Request Form")
+subquestion: Mail it to Annual Credit Report Request Service, P.O. Box 105281, Atlanta, GA 30348-5281.
+sets: mail_credit
+---
+question: Visit [annualcreditreport.com](https://www.annualcreditreport.com) 
+subquestion: Fill out the form.  They will show you your credit reports online.  You can print them or email them to yourself.
+sets: computer_credit
+---
