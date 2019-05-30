@@ -1,9 +1,9 @@
 ---
 field: intro
 question: |
-  Hello. Going to court can be scary. It is sometimes hard to know who to talk to, when to talk, and what to say.
+  Hello. Going to court can be scary. It is hard to know who to talk to, when to talk, and what to say.
 subquestion: |
-  If you would like help explaining some of your defenses and claims to the judge, press Continue.
+  If you want help talking to the judge, press **Continue**.  
 mandatory: true
 ---
 mandatory: true
@@ -19,14 +19,24 @@ mandatory: True
 code: |
   if going_court == 'case':
       event_case
+
   if going_court == 'hearing':
       event_hearing
+
   else:
     if going_court == 'trial':
       event_trial
     if going_court == 'small_claims':
       event_small_claims
     definitions
+    fdcpa_question
+    valadation_notice
+    servicemember_duty
+    identitytheft_debt
+    under_18
+    mental_incapacity
+    res_judicata
+    unjust_enrichment
     if good_faith:
       goodfaith_question
     statute_limits
@@ -36,46 +46,46 @@ code: |
       accord_answer
     if not unapplied_payments:
       dates_amounts
-    under_18
-    mental_incapacity
-    res_judicata
-    unjust_enrichment
     if fraud_answer:
       fraud_rely
     if execution_income:
       execution_proof
-    servicemember_duty
-    identitytheft_debt
     if not jurisdiction:
       contract_jurisdiction
-    fdcpa_question
-    valadation_notice
+    
 ---
 field: event_case
-question: For a case management conference you probably do not need to be ready to present your case. 
-subquestion: Come back here before you have a trial and prepare then to talk to the judge.  But if you want to learn about some things you can tell the judge now, click continue. 
+question: For a case management conference you will probably go to a room with the lawyer suing you and court staff and talk about 
+subquestion: |
+  * if you think the case can settle,
+  * a plan for trial.
+  You probably do not need to tell the judge your defenses and claims at the conference. 
+  
+  Come back here before you have a trial and prepare then to talk to the judge. 
 sets: event_case
----
-template: comeback
-content: |
-  This interview helps people prepare for a trial-- when they have to tell the judge about all of their defenses and claims.
-  Come back here and do this interview before your trial date.
 ---
 field: event_hearing
 question: |
-  This means the other side (or you) have probably asked the judge to make a 
+  This means the other side (or you) probably asked the judge to make a 
   decision about the case.  This happens before or without a trial.
 subquestion: |
-  You should have a **Motion** that tells you what the judge will want to talk about 
+  Look at the **Motion** that tells you what the judge will want to talk about 
   when you are in court.  The judge probably will not want to hear about things not in 
-  the **Motion** of the **Opposition to the Motion.** 
-  
-  But, if you want to learn more about how to prove your defenses and claims to the Judge, hit continue.
+  the **Motion** or the **Opposition to the Motion.** 
 sets: event_hearing
+---
+question: |
+  This interview helps people prepare for a trial-- when they have to tell the judge about all of their defenses and claims.
+subquestion: Come back here and do this interview before your trial date. 
+buttons:
+  - Exit: exit
+  - Learn More at MassLegalHelp.org: logout
+    url: https://www.masslegalhelp.org/consumer/debt/court
+event: comeback
 ---
 field: event_trial
 question: |
-  Great. At the trial you and the plaintiff both tell the Judge why you should win.
+  Great. At trial you and the plaintiff both tell the Judge why you should win.
 subquestion: |
   You show the Judge your **evidence**.
 
@@ -84,7 +94,7 @@ sets: event_trial
 ---
 field: event_small_claims
 question: |
-  Great. At the trial you and the plaintiff both tell the Clerk Magistrate 
+  Great. At trial you and the plaintiff both tell the Clerk Magistrate 
   or Judge why you should win.
 subquestion: |
   Show the Magistrate your **evidence**.
@@ -110,7 +120,7 @@ question: |
 yesno: payment_answer
 ---
 question: |
-  Did you pay part of this debt but were told if you made that payment you would not owe anymore?
+  Did you pay part of this debt but were told if you made a payment you would not owe anymore?
 yesno: accord_answer
 ---
 question: |
@@ -124,11 +134,11 @@ fields:
     required: false
 ---
 question: |
-  Were you under 18 when you or someone else took out this debt or the contract was signed?
+  Were you **under 18** when you or someone else took out this debt or the contract was signed?
 yesno: under_18
 ---
 question: |
-  Were you mentally incapacititated  or not able to think properly when you took out this debt or the contract was signed?
+  Were you mentally incapacititated or not able to think properly when you took out this debt or the contract was signed?
 yesno: mental_incapacity
 ---
 question: |
@@ -140,7 +150,7 @@ question: |
 subquestion: This means, did you ask that the debt would be discharged in the bankruptcy?
 yesno: discharged_debt
 ---
-question: Were you already sued for this debt by the same plaintiff?
+question: Were you already sued for this debt by the same company or plaintiff?
 yesno: res_judicata
 ---
 question: Were you already sued for this debt by someone else?
@@ -187,10 +197,10 @@ yesno: servicemember_duty
 question: Did someone else open this credit card or account or taken out this debt without you saying it was okay?
 yesno: identitytheft_debt
 ---
-question: Is the court where you are going for this case in the same county where you live?
+question: Is the court where you are going for this case in the same [county] (https://www.mass.gov/guides/courthouses-by-county) where you live?
 yesno: jurisdiction
 ---
-question: Is the court where you are going for this case in the same county where you signed the contract for the debt?
+question: Is the court where you are going for this case in the same [county] (https://www.mass.gov/guides/courthouses-by-county) where you signed the contract for the debt?
 yesno: contract_jurisdiction
 ---
 question: Has the creditor done any of the following?
@@ -231,7 +241,7 @@ attachments:
       - pdf 
       - rtf   
     content: |
-      # Getting Ready for Court
+      Getting Ready for Court
       [FLUSHLEFT] [SINGLESPACING] At your trial the judge will listen to you and the plaintiff give facts about your case. The judge will decide if:
       
       - The Plaintiff proved their case and you owe them money.
@@ -301,7 +311,7 @@ attachments:
         - __Tell the Judge__ the original creditor knowingly made false representations regarding material terms and provisions of the contract.  Tell the judge exactly what you were told <b>and</b> what you did because you were told this.  Tell the judge who told you the lie and when.  It could have been the original creditor or a debt collector.  Tell the judge, “the original creditor's fraud renders the contract unenforceable.  Therefore, the Court should dismiss the Plaintiff's claims, refuse enforcement of the contract, or take other measures it deems necessary to ensure a fair outcome.”
       % endif
       
-      % if good_faith:
+      % if good_faith.any_true():
         [BOLDCENTER] Not in Good Faith
         [BR] [FLUSHLEFT] If the creditor or debt collector did not treat you fair you may have a defense in your case.  Pressuring your or tricking you to agree to something are unfair:
         
@@ -342,12 +352,12 @@ attachments:
         - __Tell the Judge__ where you live. Tell the judge if it very difficult for you to get to court in another county.  Tell the Judge where you got this debt and show your proof. [NBSP]
       % endif
       
-      % if fdcpa_question:
+      % if fdcpa_question.any_true():
         [BOLDCENTER] Fair Debt Collection Practices Act 
         [BR] [FLUSHLEFT] It sounds like the creditor or debt collector may have violated the Fair Debt Collection Practices Law.  
         They did this by:
         
-        - ${ fdcpa_question }
+        - ${ fdcpa_question.true_values() }
         
         - __Bring__  proof of what they did.  Bring notes of the dates and times things happened and who you talked too.  If any one else witnessed what happened bring them too.  
         - __Tell the Judge__  tell the judge what happened. Tell the judge if you brought someone else to court that can say what happened.  Show your proof.  Say “ the Plaintiff violated the Fair Debt Collection Practices Act.” [NBSP]
