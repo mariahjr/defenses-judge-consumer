@@ -235,8 +235,7 @@ attachments:
     filename: trial_summary
     valid formats:
       - docx
-      - pdf 
-      - rtf   
+      - pdf    
     content: |
       [BOLDCENTER] Getting Ready for Court
 
@@ -245,12 +244,5 @@ attachments:
       2. If you proved any defenses.
       3. How much, if any, money is owed.
       4. If you proved your claim for any counterclaims.
-
-      To prove your case and your defenses you should show the judge proof or evidence that what you say is true.  Proof can be things like cancelled checks, old phone records, letters or testimony from a family member.  If you do not have proof, but you have a claim or defense still tell the juddge.  Your words about what happened to you is proof.
-      {%p if good_faith %}
-        It the plaintiff did not act in 'good faith' this means they were not fair with you.
-        Bring to court *evidence* of what they did wrong.  Did they tell you something that was not true? Bring the letter or notes you have of the date and who you spoke with.
-        When you talk to the judge talk about the details of exactly what happened, when and who said what. 
-      {%p endif %}
 mandatory: True
   

@@ -1,9 +1,0 @@
-mandatory: True
-question: Your document is ready. Print, review and bring with you to court.
-attachment:
-  - name: talkingtojudge
-    filename: Hello_World
-    description: |
-      Some things to remember when you are talking to the judge.
-    content: |
-      Hello, world!
