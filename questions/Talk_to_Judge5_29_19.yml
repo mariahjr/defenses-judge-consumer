@@ -55,27 +55,26 @@ code: |
     
 ---
 field: event_case
-question: At your case management conference you will probably go to a room with court staff and the lawyer suing you to talk about 
+question: For a case management conference you will probably go to a room with the lawyer suing you and court staff and talk about 
 subquestion: |
-  * if the case can settle,
-  * next steps in the case, like discovery and motions and
+  * if you think the case can settle,
   * a plan for trial.
   You probably do not need to tell the judge your defenses and claims at the conference. 
   
-  Come back here before you have a trial.  You can prepare then with this interview to talk to the judge. 
+  Come back here before you have a trial and prepare then to talk to the judge. 
 ---
 field: event_hearing
 question: |
   This means the other side (or you) probably asked the judge to make a 
   decision about the case.  This happens before or without a trial.
 subquestion: |
-  Look at the **Motion**. It tells you what the judge will want to talk about 
+  Look at the **Motion** that tells you what the judge will want to talk about 
   when you are in court.  The judge probably will not want to hear about things not in 
   the **Motion** or the **Opposition to the Motion.** 
 ---
 question: |
-  This interview helps people prepare for a trial.  At the trial you tell the judge your defenses and claims.
-subquestion: Come back here when you are ready to prepare for your trial.  You can do this interview before your trial date. 
+  This interview helps people prepare for a trial-- when they have to tell the judge about all of their defenses and claims.
+subquestion: Come back here and do this interview before your trial date. 
 buttons:
   - Exit: exit
   - Learn More at MassLegalHelp.org: logout
@@ -95,10 +94,9 @@ question: |
   Great. At trial you and the plaintiff both tell the Clerk Magistrate 
   or Judge why you should win.
 subquestion: |
-  Show the Magistrate your **evidence**.  Answer the following questions to get
+  Show the Magistrate your **evidence**.
 
-  * tips on what to bring to court for evidence and 
-  * how to explain your defenses to the Judge or Clerk Magistrate.
+  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge or Clerk Magistrate.
 ---
 field: definitions
 question: |
@@ -207,26 +205,26 @@ fields:
   - no label: fdcpa_question
     datatype: checkboxes
     choices:
-      - Plaintiff's first communication did not tell me “this is an attempt to collect a debt and any information will be used for that purpose."
+      - My first communication from plaintiff did not tell me “this is an attempt to collect a debt and any information will be used for that purpose."
       - When they called and wrote me I was not told "we are a debt collector." 
-      - They threaten or harassed me.
-      - They called me late at night or on weekends.
-      - They lied about the debts they are collecting.
-      - They said they would sue when they really were not going to.
-      - They contacted my friends or relatives with information about the debt or threatened to do so.
-      - They said I could be arrested. 
-      - They said I could go to jail if I do not pay.
-      - They gave false information about me to a credit bureau.
+      - Threaten or harassed me.
+      - Called me late at night or on weekends.
+      - Lied about the debts they are collecting.
+      - Say they would sue you when they really were not going to.
+      - Contacted my friends or relatives with information about the debt or threatened to do so.
+      - Said I could be arrested. 
+      - Said I could go to jail if I do not pay.
+      - Gave false information about me to a credit bureau.
 ---
 question: Within **5** days of the debt collector first contacting you did you get a letter that included **All** of the following information?
 subquestion: |
   If it did not include **all** answer "no."
   
-  * The amount of the debt;
-  * The name of the creditor;
-  * A statement that "if you do not, within thirty days after getting the letter, dispute the debt, it will be assumed to be valid by the debt collector";
-  * A statement that "if you you tell the debt collector in writing within the thirty-days that the debt is disputed, the debt collector will give you a verification of the debt or a copy of a judgment against you"; and
-  * a statement that "you can ask, within the thirty-days for the name and address of the original creditor.""
+  1. The amount of the debt;
+  2. The name of the creditor\n;
+  3. A statement that if you do not, within thirty days after getting the letter, dispute the debt, it will be assumed to be valid by the debt collector;
+  4. A statement that if you you tell the debt collector in writing within the thirty-days that the debt is disputed, the debt collector will give you a verification of the debt or a copy of a judgment against you; and
+  5. a statement that you can ask, within the thirty-days for the name and address of the original creditor.
 
 yesno: valadation_notice
 ---

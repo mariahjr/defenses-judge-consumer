@@ -13,12 +13,13 @@ metadata:
 ---
 mandatory: true
 code: |
-  intro_variable
-  this_year
   if have_credit_report: 
     great_have
   else:
     user_needs_credit_report
+---
+mandatory: True
+code: |
   if user_needs_credit_report == 'phone':
     phone_credit
   elif user_needs_credit_report == 'computer':
@@ -26,28 +27,18 @@ code: |
   elif user_needs_credit_report == 'mail':
     mail_credit
 ---    
-field: intro_variable
+field: target_variable
 question: |
-  Hello. You see all or most of your debts on your credit report.
+  Hello. Your credit report can help you see all or most of your debts in one place.
 subquestion: |
-  It lists your personal information like:
-  
-  * Where you lived and worked.  
-  * Who you owe money to.  
-  * How much money you owe.  
-  * Your on time and late payments.
+  It lists who you owe money to.  It also lists how much money you owe.  Your on time and late payments are also listed.
+mandatory: True
 ---
-question: Do you want a copy of your credit report?
+question: Do you need a copy of your credit report?
 noyes: have_credit_report
 ---
-question: Did you get a free credit report this year?
-subquestion: |
-  Each year you can get a copy of your report free from each of the 3 credit bureaus.  You can get a free report:
-  
-  * If you have not asked for 1 yet this year. 
-  * If a company gave you a copy of your credit report after you applied for something like a loan, apartment or utility. You can still get a free report.
-  * If you only got a credit report from 1 company this year.  You can probably get your credit report from the other two. 
-
+question: Have you gotten a free credit report already this year?
+subquestion: If a company gave it you after you applied for something like a loan, apartment or utility you can still get a free report.
 noyes: this_year
 ---
 question: How do you want to get your credit report?
@@ -57,7 +48,7 @@ buttons:
   - Mail: mail
   - Computer: computer
 ---
-question: Great. If you already have a copy find out [how to read it.] (https://www.masslegalhelp.org/consumer/debt/understanding-credit)
+question: Great. If you already have a copy find out how to read it here. Add page when ready.
 sets: great_have
 ---
 question: >
