@@ -1,7 +1,9 @@
 ---
 field: intro
 question: |
-  Hello. Going to court can be scary. It is hard to know who to talk to, when to talk, and what to say.
+  Hello. 
+  
+  Going to court can be scary. It is hard to know who to talk to, when to talk, and what to say.
 subquestion: |
   If you want help talking to the judge, press **Continue**.  
 mandatory: true
@@ -42,8 +44,10 @@ code: |
     statute_limits
     if bankruptcy_yes:
       discharged_debt
-    if payment_answer:
+    if not payment_answer:
       accord_answer
+    if accord_answer:
+      accord2_answer
     if not unapplied_payments:
       dates_amounts
     if fraud_answer:
@@ -84,15 +88,20 @@ event: comeback
 ---
 field: event_trial
 question: |
-  Great. At trial you and the plaintiff both tell the Judge why you should win.
+  Great. 
+  
+  At trial you and the plaintiff both tell the Judge why you should win.
 subquestion: |
-  You show the Judge your **evidence**.
-
-  * Answer the following questions to get tips on what to bring to court for evidence and how to explain your defenses to the Judge.
+  You show the Judge your **evidence**.  Answer the following questions to get 
+  
+  * tips on what to bring to court for evidence and 
+  * how to explain your defenses to the Judge.
 ---
 field: event_small_claims
 question: |
-  Great. At trial you and the plaintiff both tell the Clerk Magistrate 
+  Great. 
+  
+  At trial you and the plaintiff both tell the Clerk Magistrate 
   or Judge why you should win.
 subquestion: |
   Show the Magistrate your **evidence**.  Answer the following questions to get
@@ -110,16 +119,19 @@ subquestion: |
   * "Debt collector" is a company you did not borrow money from but who has the right to collect a debt from you.  They could work for the original creditor or bought the right to collect the debt from them.
 ---
 question: |
-  Did you make your last payment on this debt more than 6 years ago?
+  Did you make your last payment on this debt **more than 6** years ago?
 yesno: statute_limits
 ---
 question: |
-  Did you pay off this debt in full already?
+  Did you already pay this whole debt?
 yesno: payment_answer
 ---
 question: |
-  Did you pay part of this debt but were told if you made a payment you would not owe anymore?
+  Were you told if you made a certain payment you would not owe anymore on the debt?
 yesno: accord_answer
+---
+question: Did you make that payment?
+yesno: accord2_answer
 ---
 question: |
   Did you make payments that the creditor did not apply to your debt?
@@ -132,15 +144,28 @@ fields:
     required: false
 ---
 question: |
-  Were you **under 18** when you or someone else took out this debt or the contract was signed?
+  Were you **under 18** when:
+subquestion: |
+  * you signed up for this credit card, or
+  * you borrowed the money you are being sued for, or
+  * someone else borrowed this money in your name, or
+  * someone else signed this contract in your name.
 yesno: under_18
 ---
 question: |
-  Were you mentally incapacititated or not able to think properly when you took out this debt or the contract was signed?
+  Were you 
+subquestion: |
+  * mentally incapacititated or 
+  * not able to think properly 
+  
+  when you took out this debt or the contract was signed?
 yesno: mental_incapacity
 ---
 question: |
-  Did you file for bankruptcy after you took out this loan or opened this account?
+  Did you file for bankruptcy 
+subquestion: |
+  * after you took out this loan or 
+  * opened this account?
 yesno: bankruptcy_yes
 ---
 question: |
@@ -155,10 +180,21 @@ question: Were you already sued for this debt by someone else?
 yesno: unjust_enrichment
 ---
 question: Did the original creditor make promises to you about the loan or credit card that were not true?
-subquestion: Like they promised you the interest rate would stay the same or drop in six months but it did not.
+subquestion: |
+  Like they promised you 
+
+  * the interest rate would stay the same or 
+  * drop in six months 
+  
+  but it did not.
 yesno: fraud_answer
 ---
-question: Did you rely or do something like not make a payment because of the promise?
+question: Did you 
+subquestion: |
+  * rely on, or 
+  * do something like not make a payment 
+  
+  because of the promise?
 yesno: fraud_rely
 ---
 question: |
@@ -181,7 +217,11 @@ fields:
   - Plaintiff's bad acts: goodfaith_question
 ---
 question: Did you tell the plaintiff your income?
-subquestion: You could have told them anytime.  Like when you applied or when you fell behind.
+subquestion: |
+  You could have told them anytime.  Like
+
+  * when you applied for the account or 
+  * when you fell behind on payments.
 yesno: execution_income
 ---
 question: |
@@ -189,10 +229,16 @@ question: |
 subquestion: This means is your income so low that it cannot be take by creditors.  Learn more at [MassLegalHelp](http://MassLegalHelp.org/consumer/debt/court/execution-proof)
 yesno: execution_proof
 ---
-question: Are you active duty or recently discharged from the military?
+question: Are you 
+subquestion: |
+  * active duty or 
+  * recently discharged from the military?
 yesno: servicemember_duty
 ---
-question: Did someone else open this credit card or account or taken out this debt without you saying it was okay?
+question: Did someone else, without you saying it was okay, 
+subquestion: |
+  * open this credit card or account or 
+  * take out this debt?
 yesno: identitytheft_debt
 ---
 question: Is the court where you are going for this case in the same [county](http://www.mass.gov/guides/courthouses-by-county) where you live?
@@ -218,7 +264,10 @@ fields:
       - They said I could go to jail if I do not pay.
       - They gave false information about me to a credit bureau.
 ---
-question: Within **5** days of the debt collector first contacting you did you get a letter that included **All** of the following information?
+question: |
+  Within **5** days of the debt collector first contacting you 
+
+  did you get a letter that included **All** of the following information?
 subquestion: |
   If it did not include **all** answer "no."
   
@@ -226,8 +275,7 @@ subquestion: |
   * The name of the creditor;
   * A statement that "if you do not, within thirty days after getting the letter, dispute the debt, it will be assumed to be valid by the debt collector";
   * A statement that "if you you tell the debt collector in writing within the thirty-days that the debt is disputed, the debt collector will give you a verification of the debt or a copy of a judgment against you"; and
-  * a statement that "you can ask, within the thirty-days for the name and address of the original creditor.""
-
+  * a statement that "you can ask, within the thirty-days for the name and address of the original creditor."
 yesno: valadation_notice
 ---
 mandatory: True
@@ -239,7 +287,7 @@ attachments:
       - pdf 
       - rtf   
     content: |
-      Getting Ready for Court
+      [BOLD] Getting Ready for Court
       [FLUSHLEFT] [SINGLESPACING] At your trial the judge will listen to you and the plaintiff give facts about your case. The judge will decide if:
       
       - The Plaintiff proved their case and you owe them money.
